@@ -1,0 +1,6 @@
+build/Debug
+build/ipch
+build/hydra.opensdf
+build/hydra.sdf
+build/hydra.suo
+build/hydra.vcxproj.user
