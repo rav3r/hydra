@@ -2,6 +2,7 @@
 
 #include "TabDock.h"
 #include "VerticalDock.h"
+#include "Sizes.h"
 
 #include <cassert>
 
@@ -93,7 +94,6 @@ Dock* HorizontalDock::AddTabRight(Dock* where, Tab* tab)
 	return mDocks[index + 1];
 }
 
-
 Dock* HorizontalDock::AddTabBottom(Tab* tab)
 {
 	return mParent->AddTabBottom(this, tab);
@@ -107,4 +107,35 @@ Dock* HorizontalDock::AddTabBottom(Dock* where, Tab* tab)
 	Dock* tmp = mDocks[index];
 	mDocks[index] = new VerticalDock(this, tmp);
 	return mDocks[index]->AddTabBottom(tab);
+}
+
+int HorizontalDock::ComputeChildPositionX(Dock* dock)
+{
+	int index = 0;
+	int pos = GetPositionX();
+	for(; mDocks[index] != dock; index++)
+	{
+		pos += mDocks[index]->mSize;
+		pos += SPLITTER_SIZE;
+	}
+
+	return pos;
+}
+
+int HorizontalDock::ComputeChildPositionY(Dock* dock)
+{
+	return GetPositionY();
+}
+
+int HorizontalDock::ComputeChildWidth(Dock* dock)
+{
+	if(dock != mDocks.back())
+		return dock->mSize;
+
+	return GetWidth() - ComputeChildPositionX(dock) + GetPositionX();
+}
+
+int HorizontalDock::ComputeChildHeight(Dock* dock)
+{
+	return GetHeight();
 }

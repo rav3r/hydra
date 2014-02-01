@@ -27,8 +27,20 @@ public:
 
 	virtual Tab* GetCurrentTab();
 
+	virtual int GetPositionX();
+	virtual int GetPositionY();
+	virtual int GetWidth();
+	virtual int GetHeight();
+
+	virtual int ComputeChildPositionX(Dock* dock);
+	virtual int ComputeChildPositionY(Dock* dock);
+	virtual int ComputeChildWidth(Dock* dock);
+	virtual int ComputeChildHeight(Dock* dock);
+
 protected:
 	Dock* mParent;
+
+	int mSize;
 
 	friend class HorizontalDock;
 	friend class VerticalDock;

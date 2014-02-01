@@ -2,7 +2,7 @@
 
 #include <cassert>
 
-Dock::Dock(Dock* parent): mParent(parent)
+Dock::Dock(Dock* parent): mParent(parent), mSize(64)
 {
 }
 
@@ -59,5 +59,49 @@ Dock* Dock::AddTabBottom(Dock* where, Tab* tab)
 
 Tab* Dock::GetCurrentTab()
 {
+	return 0;
+}
+
+int Dock::GetPositionX()
+{
+	return mParent->ComputeChildPositionX(this);
+}
+
+int Dock::GetPositionY()
+{
+	return mParent->ComputeChildPositionY(this);
+}
+
+int Dock::GetWidth()
+{
+	return mParent->ComputeChildWidth(this);
+}
+
+int Dock::GetHeight()
+{
+	return mParent->ComputeChildHeight(this);
+}
+
+int Dock::ComputeChildPositionX(Dock* dock)
+{
+	assert(!"unimplemented");
+	return 0;
+}
+
+int Dock::ComputeChildPositionY(Dock* dock)
+{
+	assert(!"unimplemented");
+	return 0;
+}
+
+int Dock::ComputeChildWidth(Dock* dock)
+{
+	assert(!"unimplemented");
+	return 0;
+}
+
+int Dock::ComputeChildHeight(Dock* dock)
+{
+	assert(!"unimplemented");
 	return 0;
 }

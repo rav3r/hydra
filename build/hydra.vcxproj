@@ -107,10 +107,12 @@
     <ClCompile Include="..\source\UnitTest++\XmlTestReporter.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\source\Dock\DebugDraw.h" />
     <ClInclude Include="..\source\Dock\Dock.h" />
     <ClInclude Include="..\source\Dock\DockType.h" />
     <ClInclude Include="..\source\Dock\HorizontalDock.h" />
     <ClInclude Include="..\source\Dock\RootDock.h" />
+    <ClInclude Include="..\source\Dock\Sizes.h" />
     <ClInclude Include="..\source\Dock\Tab.h" />
     <ClInclude Include="..\source\Dock\TabDock.h" />
     <ClInclude Include="..\source\Dock\VerticalDock.h" />

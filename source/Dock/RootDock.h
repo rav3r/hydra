@@ -22,6 +22,10 @@ public:
 	int GetPositionY();
 	int GetWidth();
 	int GetHeight();
+	int ComputeChildPositionX(Dock* dock);
+	int ComputeChildPositionY(Dock* dock);
+	int ComputeChildWidth(Dock* dock);
+	int ComputeChildHeight(Dock* dock);
 
 private:
 	int mX, mY;

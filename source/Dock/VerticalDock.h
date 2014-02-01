@@ -25,6 +25,11 @@ public:
 	Dock* AddTabBottom(Tab* tab);
 	Dock* AddTabBottom(Dock* where, Tab* tab);
 
+	int ComputeChildPositionX(Dock* dock);
+	int ComputeChildPositionY(Dock* dock);
+	int ComputeChildWidth(Dock* dock);
+	int ComputeChildHeight(Dock* dock);
+
 private:
 	std::vector<Dock*> mDocks;
 };

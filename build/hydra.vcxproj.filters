@@ -183,5 +183,11 @@
     <ClInclude Include="..\source\Dock\DockType.h">
       <Filter>Dock</Filter>
     </ClInclude>
+    <ClInclude Include="..\source\Dock\DebugDraw.h">
+      <Filter>Dock</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\Dock\Sizes.h">
+      <Filter>Dock</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

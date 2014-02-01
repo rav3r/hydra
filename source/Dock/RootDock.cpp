@@ -76,3 +76,31 @@ int RootDock::GetHeight()
 {
 	return mHeight;
 }
+
+int RootDock::ComputeChildPositionX(Dock* dock)
+{
+	assert(dock == mRootDock);
+
+	return GetPositionX();
+}
+
+int RootDock::ComputeChildPositionY(Dock* dock)
+{
+	assert(dock == mRootDock);
+
+	return GetPositionY();
+}
+
+int RootDock::ComputeChildWidth(Dock* dock)
+{
+	assert(dock == mRootDock);
+
+	return GetWidth();
+}
+
+int RootDock::ComputeChildHeight(Dock* dock)
+{
+	assert(dock == mRootDock);
+
+	return GetHeight();
+}
