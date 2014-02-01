@@ -19,6 +19,7 @@ public:
 
 	Dock* AddTabLeft(Tab* tab);
 	Dock* AddTabRight(Tab* tab);
+	Dock* AddTabBottom(Tab* tab);
 
 private:
 	std::vector<Tab*> mTabs;

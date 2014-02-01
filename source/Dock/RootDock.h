@@ -15,6 +15,7 @@ public:
 
 	Dock* AddTabLeft(Dock* where, Tab* tab);
 	Dock* AddTabRight(Dock* where, Tab* tab);
+	Dock* AddTabBottom(Dock* where, Tab* tab);
 
 	int GetPositionX();
 	int GetPositionY();

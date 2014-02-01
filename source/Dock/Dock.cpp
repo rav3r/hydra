@@ -35,6 +35,18 @@ Dock* Dock::AddTabRight(Dock* where, Tab* tab)
 	return 0;
 }
 
+Dock* Dock::AddTabBottom(Tab* tab)
+{
+	assert(!"unimplemented");
+	return 0;
+}
+
+Dock* Dock::AddTabBottom(Dock* where, Tab* tab)
+{
+	assert(!"unimplemented");
+	return 0;
+}
+
 Tab* Dock::GetCurrentTab()
 {
 	return 0;

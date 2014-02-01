@@ -20,6 +20,9 @@ public:
 	virtual Dock* AddTabRight(Tab* tab);
 	virtual Dock* AddTabRight(Dock* where, Tab* tab);
 
+	virtual Dock* AddTabBottom(Tab* tab);
+	virtual Dock* AddTabBottom(Dock* where, Tab* tab);
+
 	virtual Tab* GetCurrentTab();
 
 protected:

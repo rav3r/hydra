@@ -20,6 +20,9 @@ public:
 	Dock* AddTabRight(Tab* tab);
 	Dock* AddTabRight(Dock* where, Tab* tab);
 
+	Dock* AddTabBottom(Tab* tab);
+	Dock* AddTabBottom(Dock* where, Tab* tab);
+
 private:
 	std::vector<Dock*> mDocks;
 };

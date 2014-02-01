@@ -1,6 +1,7 @@
 #include "HorizontalDock.h"
 
 #include "TabDock.h"
+#include "VerticalDock.h"
 
 #include <cassert>
 
@@ -63,5 +64,21 @@ Dock* HorizontalDock::AddTabRight(Dock* where, Tab* tab)
 
 	mDocks.insert(mDocks.begin() + index + 1, new TabDock(this, tab));
 
-	return mDocks[index];
+	return mDocks[index + 1];
+}
+
+
+Dock* HorizontalDock::AddTabBottom(Tab* tab)
+{
+	return mParent->AddTabBottom(this, tab);
+}
+
+Dock* HorizontalDock::AddTabBottom(Dock* where, Tab* tab)
+{
+	int index = 0;
+	for(; mDocks[index] != where; index++);
+
+	Dock* tmp = mDocks[index];
+	mDocks[index] = new VerticalDock(this, tmp);
+	return mDocks[index]->AddTabBottom(tab);
 }

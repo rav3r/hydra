@@ -42,3 +42,8 @@ Dock* TabDock::AddTabRight(Tab* tab)
 {
 	return mParent->AddTabRight(this, tab);
 }
+
+Dock* TabDock::AddTabBottom(Tab* tab)
+{
+	return mParent->AddTabBottom(this, tab);
+}

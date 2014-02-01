@@ -1,6 +1,16 @@
 #include "VerticalDock.h"
 
 #include "HorizontalDock.h"
+#include "TabDock.h"
+
+#include <cassert>
+
+VerticalDock::VerticalDock(Dock* parent, Dock* firstChild):
+Dock(parent)
+{
+	mDocks.push_back(firstChild);
+	firstChild->mParent = this;
+}
 
 DockType VerticalDock::GetType()
 {
@@ -28,8 +38,7 @@ Dock* VerticalDock::AddTabLeft(Dock* where, Tab* tab)
 	for(; mDocks[index] != where; index++);
 
 	Dock* tmp = mDocks[index];
-	HorizontalDock* horizontalDock;
-	mDocks[index] = horizontalDock = new HorizontalDock(this, tmp);
+	mDocks[index] = new HorizontalDock(this, tmp);
 	return mDocks[index]->AddTabLeft(tab);
 }
 
@@ -44,7 +53,26 @@ Dock* VerticalDock::AddTabRight(Dock* where, Tab* tab)
 	for(; mDocks[index] != where; index++);
 
 	Dock* tmp = mDocks[index];
-	HorizontalDock* horizontalDock;
-	mDocks[index] = horizontalDock = new HorizontalDock(this, tmp);
+	mDocks[index] = new HorizontalDock(this, tmp);
 	return mDocks[index]->AddTabRight(tab);
+}
+
+Dock* VerticalDock::AddTabBottom(Tab* tab)
+{
+	TabDock* tabDock = new TabDock(this, tab);
+	mDocks.push_back(tabDock);
+	
+	return tabDock;
+}
+
+Dock* VerticalDock::AddTabBottom(Dock* where, Tab* tab)
+{
+	int index = 0;
+	for(; mDocks[index] != where; index++);
+
+	assert(index < (int)mDocks.size());
+
+	mDocks.insert(mDocks.begin() + index + 1, new TabDock(this, tab));
+
+	return mDocks[index + 1];
 }

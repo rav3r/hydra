@@ -2,6 +2,7 @@
 
 #include "TabDock.h"
 #include "HorizontalDock.h"
+#include "VerticalDock.h"
 
 RootDock::RootDock(int x, int y, int width, int height, Tab* tab):
 Dock(0), mX(x), mY(y), mWidth(width), mHeight(height), mRootDock(0)
@@ -27,17 +28,22 @@ Dock* RootDock::GetDock(unsigned int index)
 Dock* RootDock::AddTabLeft(Dock* where, Tab* tab)
 {
 	Dock* tmp = mRootDock;
-	HorizontalDock* horizontalDock;
-	mRootDock = horizontalDock = new HorizontalDock(this, tmp);
+	mRootDock = new HorizontalDock(this, tmp);
 	return mRootDock->AddTabLeft(tab);
 }
 
 Dock* RootDock::AddTabRight(Dock* where, Tab* tab)
 {
 	Dock* tmp = mRootDock;
-	HorizontalDock* horizontalDock;
-	mRootDock = horizontalDock = new HorizontalDock(this, tmp);
+	mRootDock = new HorizontalDock(this, tmp);
 	return mRootDock->AddTabRight(tab);
+}
+
+Dock* RootDock::AddTabBottom(Dock* where, Tab* tab)
+{
+	Dock* tmp = mRootDock;
+	mRootDock = new VerticalDock(this, tmp);
+	return mRootDock->AddTabBottom(tab);
 }
 
 int RootDock::GetPositionX()
