@@ -12,6 +12,7 @@ public:
 
 	unsigned int GetChildCount();
 	Dock* GetDock(unsigned int index);
+	void Simplify(Dock* oldChild, Dock* newChild);
 
 	Dock* AddTabLeft(Dock* where, Tab* tab);
 	Dock* AddTabRight(Dock* where, Tab* tab);

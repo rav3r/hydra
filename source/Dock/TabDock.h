@@ -15,6 +15,7 @@ public:
 	Dock* GetDock(unsigned int index);
 
 	void AddTab(Tab* tab);
+	void RemoveTab(Tab* tab);
 	Tab* GetCurrentTab();
 
 	Dock* AddTabLeft(Tab* tab);

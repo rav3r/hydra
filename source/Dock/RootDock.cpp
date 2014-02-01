@@ -4,6 +4,8 @@
 #include "HorizontalDock.h"
 #include "VerticalDock.h"
 
+#include <cassert>
+
 RootDock::RootDock(int x, int y, int width, int height, Tab* tab):
 Dock(0), mX(x), mY(y), mWidth(width), mHeight(height), mRootDock(0)
 {
@@ -23,6 +25,15 @@ unsigned int RootDock::GetChildCount()
 Dock* RootDock::GetDock(unsigned int index)
 {
 	return mRootDock;
+}
+
+void RootDock::Simplify(Dock* oldChild, Dock* newChild)
+{
+	assert(oldChild == mRootDock);
+
+	delete mRootDock;
+	mRootDock = newChild;
+	mRootDock->mParent = this;
 }
 
 Dock* RootDock::AddTabLeft(Dock* where, Tab* tab)

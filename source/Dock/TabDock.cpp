@@ -26,6 +26,24 @@ Dock* TabDock::GetDock(unsigned int index)
 void TabDock::AddTab(Tab* tab)
 {
 	mTabs.push_back(tab);
+	tab->SetDock(this);
+}
+
+void TabDock::RemoveTab(Tab* tab)
+{
+	int index = 0;
+	for(; mTabs[index] != tab; index++);
+
+	assert(index < (int)mTabs.size());
+
+	mTabs.erase(mTabs.begin() + index);
+
+	tab->SetDock(0);
+
+	if(mTabs.empty())
+	{
+		mParent->DeleteDock(this);
+	}
 }
 
 Tab* TabDock::GetCurrentTab()

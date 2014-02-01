@@ -27,6 +27,32 @@ Dock* VerticalDock::GetDock(unsigned int index)
 	return mDocks[index];
 }
 
+void VerticalDock::DeleteDock(Dock* dock)
+{
+	int index = 0;
+	for(; mDocks[index] != dock; index++);
+
+	delete mDocks[index];
+	mDocks.erase(mDocks.begin() + index);
+
+	if(mDocks.size() == 1)
+	{
+		Dock* newChild = mDocks[0];
+		mDocks.clear();
+		mParent->Simplify(this, newChild);
+	}
+}
+
+void VerticalDock::Simplify(Dock* oldChild, Dock* newChild)
+{
+	int index = 0;
+	for(; mDocks[index] != oldChild; index++);
+
+	delete mDocks[index];
+	mDocks[index] = newChild;
+	mDocks[index]->mParent = this;
+}
+
 Dock* VerticalDock::AddTabLeft(Tab* tab)
 {
 	return mParent->AddTabLeft(this, tab);

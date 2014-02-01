@@ -13,6 +13,8 @@ public:
 
 	unsigned int GetChildCount();
 	Dock* GetDock(unsigned int index);
+	void DeleteDock(Dock* dock);
+	void Simplify(Dock* oldChild, Dock* newChild);
 
 	Dock* AddTabLeft(Tab* tab);
 	Dock* AddTabLeft(Dock* where, Tab* tab);

@@ -111,3 +111,71 @@ TEST(RootDockAddTabLeftAndBottom)
 	CHECK_EQUAL(&tab, root[0][1][0].GetCurrentTab());
 	CHECK_EQUAL(&bottom, root[0][1][1].GetCurrentTab());
 }
+
+TEST(RootDockUndockTab)
+{
+	Tab tab("sample");
+	RootDock root(10, 20, 50, 70, &tab);
+
+	Tab left("left");
+	root[0].AddTabLeft(&left);
+
+	// root
+	//	- horizontal
+	//		- tab -> left
+	//		- tab -> sample
+
+	left.UnDock();
+
+	// root
+	//	- tab -> simple
+
+	CHECK_EQUAL(1, root.GetChildCount());
+	CHECK_EQUAL(0, root[0].GetChildCount());
+	CHECK_EQUAL(&tab, root[0].GetCurrentTab());
+}
+
+TEST(RootDockAddTabLeftAndBottom2)
+{
+	Tab tab("sample");
+	RootDock root(10, 20, 50, 70, &tab);
+
+	Tab left("left");
+	root[0].AddTabLeft(&left);
+
+	Tab bottom("bottom");
+	root[0][1].AddTabBottom(&bottom);
+
+	// root
+	//	- horizontal
+	//		- tab -> left
+	//		- vertical
+	//			- tab -> sample
+	//			- tab -> bottom
+
+	tab.UnDock();
+
+	// root
+	//	- horizontal
+	//		- tab -> left
+	//		- tab -> bottom
+
+	CHECK_EQUAL(DockTypes::Root, root.GetType());
+	CHECK_EQUAL(1, root.GetChildCount());
+	CHECK_EQUAL(DockTypes::Horizontal, root[0].GetType());
+	CHECK_EQUAL(2, root[0].GetChildCount());
+	CHECK_EQUAL(DockTypes::Tab, root[0][0].GetType());
+	CHECK_EQUAL(DockTypes::Tab, root[0][1].GetType());
+	CHECK_EQUAL(&left, root[0][0].GetCurrentTab());
+	CHECK_EQUAL(&bottom, root[0][1].GetCurrentTab());
+
+	left.UnDock();
+
+	// root
+	//	- tab -> bottom
+
+	CHECK_EQUAL(DockTypes::Root, root.GetType());
+	CHECK_EQUAL(1, root.GetChildCount());
+	CHECK_EQUAL(DockTypes::Tab, root[0].GetType());
+	CHECK_EQUAL(&bottom, root[0].GetCurrentTab());
+}

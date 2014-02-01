@@ -13,6 +13,8 @@ public:
 	virtual unsigned int GetChildCount() = 0;
 	virtual Dock* GetDock(unsigned int index) = 0;
 	Dock& operator[] (unsigned int index);
+	virtual void DeleteDock(Dock* dock);
+	virtual void Simplify(Dock* oldChild, Dock* newChild);
 
 	virtual Dock* AddTabLeft(Tab* tab);
 	virtual Dock* AddTabLeft(Dock* where, Tab* tab);
@@ -30,4 +32,5 @@ protected:
 
 	friend class HorizontalDock;
 	friend class VerticalDock;
+	friend class RootDock;
 };

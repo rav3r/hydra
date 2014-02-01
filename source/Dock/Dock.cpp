@@ -11,6 +11,16 @@ Dock& Dock::operator[](unsigned int index)
 	return *GetDock(index);
 }
 
+void Dock::DeleteDock(Dock* dock)
+{
+	assert(!"unimplemented");
+}
+
+void Dock::Simplify(Dock* oldChild, Dock* newChild)
+{
+	assert(!"unimplemented");
+}
+
 Dock* Dock::AddTabLeft(Tab* tab)
 {
 	assert(!"unimplemented");
