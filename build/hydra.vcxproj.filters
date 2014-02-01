@@ -7,6 +7,12 @@
     <Filter Include="UnitTest++\Win32">
       <UniqueIdentifier>{8d17f7db-891a-4617-9cfd-063fb8fd188e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Dock">
+      <UniqueIdentifier>{54d4f795-3e72-4b51-a99a-2d6b7e5de189}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Dock\TestHarness">
+      <UniqueIdentifier>{042233d1-497c-4a8a-9392-a59c636cd52f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\UnitTest++\AssertException.cpp">
@@ -61,6 +67,27 @@
       <Filter>UnitTest++\Win32</Filter>
     </ClCompile>
     <ClCompile Include="..\source\main.cpp" />
+    <ClCompile Include="..\source\Dock\Tab.cpp">
+      <Filter>Dock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Dock\TabDock.cpp">
+      <Filter>Dock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Dock\VerticalDock.cpp">
+      <Filter>Dock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Dock\TestHarness\Test_RootDock.cpp">
+      <Filter>Dock\TestHarness</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Dock\RootDock.cpp">
+      <Filter>Dock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Dock\Dock.cpp">
+      <Filter>Dock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Dock\HorizontalDock.cpp">
+      <Filter>Dock</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\UnitTest++\AssertException.h">
@@ -134,6 +161,27 @@
     </ClInclude>
     <ClInclude Include="..\source\UnitTest++\Win32\TimeHelpers.h">
       <Filter>UnitTest++\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\Dock\TabDock.h">
+      <Filter>Dock</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\Dock\Tab.h">
+      <Filter>Dock</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\Dock\VerticalDock.h">
+      <Filter>Dock</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\Dock\RootDock.h">
+      <Filter>Dock</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\Dock\Dock.h">
+      <Filter>Dock</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\Dock\HorizontalDock.h">
+      <Filter>Dock</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\Dock\DockType.h">
+      <Filter>Dock</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

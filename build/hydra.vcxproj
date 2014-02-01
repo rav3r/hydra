@@ -74,6 +74,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\source\Dock\Dock.cpp" />
+    <ClCompile Include="..\source\Dock\HorizontalDock.cpp" />
+    <ClCompile Include="..\source\Dock\RootDock.cpp" />
+    <ClCompile Include="..\source\Dock\Tab.cpp" />
+    <ClCompile Include="..\source\Dock\TabDock.cpp" />
+    <ClCompile Include="..\source\Dock\TestHarness\Test_RootDock.cpp" />
+    <ClCompile Include="..\source\Dock\VerticalDock.cpp" />
     <ClCompile Include="..\source\main.cpp" />
     <ClCompile Include="..\source\UnitTest++\AssertException.cpp" />
     <ClCompile Include="..\source\UnitTest++\Checks.cpp" />
@@ -94,6 +101,13 @@
     <ClCompile Include="..\source\UnitTest++\XmlTestReporter.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\source\Dock\Dock.h" />
+    <ClInclude Include="..\source\Dock\DockType.h" />
+    <ClInclude Include="..\source\Dock\HorizontalDock.h" />
+    <ClInclude Include="..\source\Dock\RootDock.h" />
+    <ClInclude Include="..\source\Dock\Tab.h" />
+    <ClInclude Include="..\source\Dock\TabDock.h" />
+    <ClInclude Include="..\source\Dock\VerticalDock.h" />
     <ClInclude Include="..\source\UnitTest++\AssertException.h" />
     <ClInclude Include="..\source\UnitTest++\CheckMacros.h" />
     <ClInclude Include="..\source\UnitTest++\Checks.h" />
