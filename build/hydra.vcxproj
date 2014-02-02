@@ -81,6 +81,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\source\Dock\Dock.cpp" />
+    <ClCompile Include="..\source\Dock\DraggedTab.h" />
     <ClCompile Include="..\source\Dock\HorizontalDock.cpp" />
     <ClCompile Include="..\source\Dock\RootDock.cpp" />
     <ClCompile Include="..\source\Dock\Tab.cpp" />

@@ -35,6 +35,11 @@ public:
 	int GetMinWidth();
 	int GetMinHeight();
 
+	bool IsTabDragged();
+	DraggedTab GetDraggedTab();
+	void FillDropArea(DraggedTab& tab);
+	bool OnDrop(DraggedTab draggedTab);
+
 private:
 	std::vector<Dock*> mDocks;
 	int mPressedSplitter;

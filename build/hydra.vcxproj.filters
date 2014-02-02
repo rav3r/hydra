@@ -88,6 +88,9 @@
     <ClCompile Include="..\source\Dock\HorizontalDock.cpp">
       <Filter>Dock</Filter>
     </ClCompile>
+    <ClCompile Include="..\source\Dock\DraggedTab.h">
+      <Filter>Dock</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\UnitTest++\AssertException.h">

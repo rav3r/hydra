@@ -1,9 +1,10 @@
 #include "TabDock.h"
+#include "Sizes.h"
 
 #include <cassert>
 
 TabDock::TabDock(Dock* parent, Tab* tab):
-Dock(parent), mCurrentTab(0)
+Dock(parent), mCurrentTab(0), mPressedTab(-1)
 {
 	AddTab(tab);
 }
@@ -71,6 +72,42 @@ Dock* TabDock::AddTabBottom(Tab* tab)
 
 bool TabDock::OnEvent(const sf::Event& event)
 {
+	if(event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
+	{
+		if(event.mouseButton.x > GetPositionX() && event.mouseButton.x < GetPositionX() + GetWidth() &&
+			event.mouseButton.y > GetPositionY() && event.mouseButton.y < GetPositionY() + CAPTION_HEIGHT)
+		{
+			int posX = GetPositionX();
+
+			for(unsigned int i=0; i<mTabs.size(); i++)
+			{
+				if(event.mouseButton.x > posX && event.mouseButton.x < posX + GetCaptionWidth())
+				{
+					mCurrentTab = i;
+					mPressedTab = i;
+					InitDraggedTab(event.mouseButton.x, event.mouseButton.y);
+					return true;
+				}
+
+				posX += GetCaptionWidth();
+			}
+		}
+	} else if(event.type == sf::Event::MouseLeft || (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left))
+	{
+		if(mPressedTab != -1)
+		{
+			mPressedTab = -1;
+			GetRoot()->OnDrop(mDraggedTab);
+			return true;
+		}
+	} else if(event.type == sf::Event::MouseMoved)
+	{
+		if(mPressedTab != -1)
+		{
+			InitDraggedTab(event.mouseMove.x, event.mouseMove.y);
+		}
+	}
+
 	return false;
 }
 
@@ -111,4 +148,109 @@ unsigned int TabDock::GetTabCount()
 Tab* TabDock::GetTab(unsigned int index)
 {
 	return mTabs[index];
+}
+
+bool TabDock::IsTabDragged()
+{
+	return mPressedTab != -1;
+}
+
+DraggedTab TabDock::GetDraggedTab()
+{
+	return mDraggedTab;
+}
+
+void TabDock::InitDraggedTab(int mouseX, int mouseY)
+{
+	mDraggedTab.tab = mTabs[mPressedTab];
+	mDraggedTab.height = 20;
+	mDraggedTab.width = GetCaptionWidth();
+	mDraggedTab.x = mouseX;
+	mDraggedTab.y = mouseY;
+}
+
+void TabDock::FillDropArea(DraggedTab& draggedTab)
+{
+	if(draggedTab.tab == GetCurrentTab() && GetTabCount() == 1)
+		return;
+
+	int x = GetPositionX();
+	int y = GetPositionY();
+	int width = GetWidth();
+	int height = GetHeight();
+
+	if(draggedTab.x > x && draggedTab.x < x + width && draggedTab.y > y && draggedTab.y < y + height)
+	{
+		if(draggedTab.y > y + height * 2 / 3)
+		{
+			draggedTab.showArea = true;
+			draggedTab.areaX = x;
+			draggedTab.areaY = y + height * 2 / 3;
+			draggedTab.areaWidth = width;
+			draggedTab.areaHeight = height - height * 2 / 3;
+		} else if(draggedTab.y < y + CAPTION_HEIGHT)
+		{
+			if(draggedTab.tab == GetCurrentTab())
+				return;
+			draggedTab.showArea = true;
+			draggedTab.areaX = x;
+			draggedTab.areaY = y;
+			draggedTab.areaWidth = width;
+			draggedTab.areaHeight = CAPTION_HEIGHT;
+		} else if(draggedTab.x < x + width * 1 / 3)
+		{
+			draggedTab.showArea = true;
+			draggedTab.areaX = x;
+			draggedTab.areaY = y + CAPTION_HEIGHT;
+			draggedTab.areaWidth = width * 1 / 3;
+			draggedTab.areaHeight = height - CAPTION_HEIGHT;
+		} else if(draggedTab.x > x + width * 2 / 3)
+		{
+			draggedTab.showArea = true;
+			draggedTab.areaX = x + width * 2 /3;
+			draggedTab.areaY = y + CAPTION_HEIGHT;
+			draggedTab.areaWidth = width - width * 2 / 3;
+			draggedTab.areaHeight = height - CAPTION_HEIGHT;
+		}
+	}
+}
+
+bool TabDock::OnDrop(DraggedTab draggedTab)
+{
+	if(draggedTab.tab == GetCurrentTab() && GetTabCount() == 1)
+		return false;
+
+	int x = GetPositionX();
+	int y = GetPositionY();
+	int width = GetWidth();
+	int height = GetHeight();
+
+	if(draggedTab.x > x && draggedTab.x < x + width && draggedTab.y > y && draggedTab.y < y + height)
+	{
+		if(draggedTab.y > y + height * 2 / 3)
+		{
+			draggedTab.tab->UnDock();
+			AddTabBottom(draggedTab.tab);
+			return true;
+		} else if(draggedTab.y < y + CAPTION_HEIGHT)
+		{
+			if(draggedTab.tab == GetCurrentTab())
+				return false;
+			draggedTab.tab->UnDock();
+			AddTab(draggedTab.tab);
+			return true;
+		} else if(draggedTab.x < x + width * 1 / 3)
+		{
+			draggedTab.tab->UnDock();
+			AddTabLeft(draggedTab.tab);
+			return true;
+		} else if(draggedTab.x > x + width * 2 / 3)
+		{
+			draggedTab.tab->UnDock();
+			AddTabRight(draggedTab.tab);
+			return true;
+		}
+	}
+
+	return false;
 }

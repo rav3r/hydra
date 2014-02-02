@@ -2,6 +2,7 @@
 
 #include "Tab.h"
 #include "DockType.h"
+#include "DraggedTab.h"
 
 #include <SFML/Window/Event.hpp>
 
@@ -41,10 +42,17 @@ public:
 	virtual int ComputeChildWidth(Dock* dock);
 	virtual int ComputeChildHeight(Dock* dock);
 
+	Dock* GetRoot();
+
 	virtual bool OnEvent(const sf::Event& event) = 0;
 
 	virtual int GetMinWidth() = 0;
 	virtual int GetMinHeight() = 0;
+
+	virtual bool IsTabDragged() = 0;
+	virtual DraggedTab GetDraggedTab() = 0;
+	virtual void FillDropArea(DraggedTab& draggedTab) = 0;
+	virtual bool OnDrop(DraggedTab draggedTab) = 0;
 
 protected:
 	Dock* mParent;

@@ -243,3 +243,33 @@ int HorizontalDock::GetMinHeight()
 	}
 	return mn;
 }
+
+bool HorizontalDock::IsTabDragged()
+{
+	for(unsigned int i=0; i<mDocks.size(); i++)
+		if(mDocks[i]->IsTabDragged())
+			return true;
+	return false;
+}
+
+DraggedTab HorizontalDock::GetDraggedTab()
+{
+	for(unsigned int i=0; i<mDocks.size(); i++)
+		if(mDocks[i]->IsTabDragged())
+			return mDocks[i]->GetDraggedTab();
+	return DraggedTab();
+}
+
+void HorizontalDock::FillDropArea(DraggedTab& draggedTab)
+{
+	for(unsigned int i=0; i<mDocks.size(); i++)
+		mDocks[i]->FillDropArea(draggedTab);
+}
+
+bool HorizontalDock::OnDrop(DraggedTab draggedTab)
+{
+	for(unsigned int i=0; i<mDocks.size(); i++)
+		if(mDocks[i]->OnDrop(draggedTab))
+			return true;
+	return false;
+}

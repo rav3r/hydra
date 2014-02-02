@@ -23,8 +23,6 @@ int main()
 	rootDock[0][1][1].AddTabLeft(&left2);
 	Tab project("project");
 	rootDock[0][0].AddTab(&project);
-	Tab explorer("explorer");
-	rootDock[0][0].AddTab(&explorer);
 
 
 	while(window.isOpen())

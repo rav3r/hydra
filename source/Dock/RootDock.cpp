@@ -129,3 +129,23 @@ int RootDock::GetMinHeight()
 {
 	return mRootDock->GetMinHeight();
 }
+
+bool RootDock::IsTabDragged()
+{
+	return mRootDock->IsTabDragged();
+}
+
+DraggedTab RootDock::GetDraggedTab()
+{
+	return mRootDock->GetDraggedTab();
+}
+
+void RootDock::FillDropArea(DraggedTab& draggedTab)
+{
+	mRootDock->FillDropArea(draggedTab);
+}
+
+bool RootDock::OnDrop(DraggedTab draggedTab)
+{
+	return mRootDock->OnDrop(draggedTab);
+}

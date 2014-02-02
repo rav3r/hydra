@@ -115,3 +115,10 @@ int Dock::ComputeChildHeight(Dock* dock)
 	assert(!"unimplemented");
 	return 0;
 }
+
+Dock* Dock::GetRoot()
+{
+	if(mParent)
+		return mParent->GetRoot();
+	return this;
+}

@@ -35,6 +35,11 @@ public:
 	int GetMinWidth();
 	int GetMinHeight();
 
+	bool IsTabDragged();
+	DraggedTab GetDraggedTab();
+	void FillDropArea(DraggedTab& draggedTab);
+	bool OnDrop(DraggedTab draggedTab);
+
 private:
 	int mX, mY;
 	int mWidth, mHeight;

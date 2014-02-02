@@ -31,8 +31,16 @@ public:
 
 	unsigned int GetTabCount();
 	Tab* GetTab(unsigned int index);
+	
+	bool IsTabDragged();
+	DraggedTab GetDraggedTab();
+	void FillDropArea(DraggedTab& draggedTab);
+	bool OnDrop(DraggedTab draggedTab);
 
 private:
 	std::vector<Tab*> mTabs;
 	unsigned int mCurrentTab;
+	int mPressedTab;
+	DraggedTab mDraggedTab;
+	void InitDraggedTab(int mouseX, int mouseY);
 };

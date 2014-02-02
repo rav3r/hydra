@@ -99,7 +99,10 @@ Dock* VerticalDock::AddTabBottom(Dock* where, Tab* tab)
 
 	assert(index < (int)mDocks.size());
 
-	mDocks.insert(mDocks.begin() + index + 1, new TabDock(this, tab));
+	if(index == (int)(mDocks.size())-1)
+		mDocks.push_back(new TabDock(this, tab));
+	else
+		mDocks.insert(mDocks.begin() + index + 1, new TabDock(this, tab));
 
 	return mDocks[index + 1];
 }
@@ -237,4 +240,34 @@ int VerticalDock::GetMinHeight()
 		mn += mDocks[i]->GetMinHeight();
 	}
 	return mn;
+}
+
+bool VerticalDock::IsTabDragged()
+{
+	for(unsigned int i=0; i<mDocks.size(); i++)
+		if(mDocks[i]->IsTabDragged())
+			return true;
+	return false;
+}
+
+DraggedTab VerticalDock::GetDraggedTab()
+{
+	for(unsigned int i=0; i<mDocks.size(); i++)
+		if(mDocks[i]->IsTabDragged())
+			return mDocks[i]->GetDraggedTab();
+	return DraggedTab();
+}
+
+void VerticalDock::FillDropArea(DraggedTab& draggedTab)
+{
+	for(unsigned int i=0; i<mDocks.size(); i++)
+		mDocks[i]->FillDropArea(draggedTab);
+}
+
+bool VerticalDock::OnDrop(DraggedTab draggedTab)
+{
+	for(unsigned int i=0; i<mDocks.size(); i++)
+		if(mDocks[i]->OnDrop(draggedTab))
+			return true;
+	return false;
 }

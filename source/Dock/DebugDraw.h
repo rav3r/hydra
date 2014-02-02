@@ -12,14 +12,15 @@ void Dock_DebugDrawRecursively(Dock& dock, sf::RenderWindow& window)
 {
 	sf::RectangleShape rect;
 	
-	rect.setOutlineColor(sf::Color(255, 0, 0));
-	rect.setFillColor(sf::Color(0, 255, 0));
+	rect.setOutlineColor(sf::Color(255, 255, 255));
+	rect.setFillColor(sf::Color(64, 64, 64));
 	
 	rect.setSize(sf::Vector2f((float)dock.GetWidth(), (float)dock.GetHeight()));
 	rect.setPosition(sf::Vector2f((float)dock.GetPositionX(), (float)dock.GetPositionY()));
 	rect.setOutlineThickness(1.0f);
 
-	window.draw(rect);
+	if(dock.GetType() == DockTypes::Tab)
+		window.draw(rect);
 
 	for(unsigned int i=0; i<dock.GetChildCount(); i++)
 		Dock_DebugDrawRecursively(dock[i], window);
@@ -47,7 +48,7 @@ void Dock_DebugDrawRecursively(Dock& dock, sf::RenderWindow& window)
 			rect.setFillColor(current ? sf::Color(64, 64, 64) : sf::Color(128, 128, 128));
 			rect.setOutlineColor(sf::Color(255, 255, 255));
 
-			rect.setSize(sf::Vector2f(tabDock.GetCaptionWidth()-2, (float)CAPTION_HEIGHT-2));
+			rect.setSize(sf::Vector2f((float)tabDock.GetCaptionWidth()-2, (float)CAPTION_HEIGHT-2));
 			rect.setPosition(sf::Vector2f(posX+1, (float)dock.GetPositionY()+1));
 			rect.setOutlineThickness(1.0f);
 
@@ -69,4 +70,33 @@ void Dock_DebugDraw(RootDock& root, sf::RenderWindow& window)
 	window.setView(view);
 
 	Dock_DebugDrawRecursively(root, window);
+
+	if(root.IsTabDragged())
+	{
+		DraggedTab draggedTab = root.GetDraggedTab();
+
+		draggedTab.showArea = false;
+		root.FillDropArea(draggedTab);
+
+		if(draggedTab.showArea)
+		{
+			sf::RectangleShape rect;
+
+			rect.setFillColor(sf::Color(0, 0, 255, 128));
+
+			rect.setSize(sf::Vector2f((float)draggedTab.areaWidth, (float)draggedTab.areaHeight));
+			rect.setPosition(sf::Vector2f((float)draggedTab.areaX, (float)draggedTab.areaY));
+
+			window.draw(rect);
+		}
+		
+		sf::RectangleShape rect;
+
+		rect.setFillColor(sf::Color(128, 0, 128));
+
+		rect.setSize(sf::Vector2f((float)draggedTab.width, (float)draggedTab.height));
+		rect.setPosition(sf::Vector2f((float)draggedTab.x - draggedTab.width/2, (float)draggedTab.y - draggedTab.height));
+
+		window.draw(rect);
+	}
 }
