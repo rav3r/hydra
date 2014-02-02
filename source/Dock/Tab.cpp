@@ -25,3 +25,8 @@ int Tab::GetMinHeight()
 {
 	return 128;
 }
+
+const char* Tab::GetCaption()
+{
+	return mCaption;
+}

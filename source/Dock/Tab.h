@@ -13,6 +13,8 @@ public:
 	int GetMinWidth();
 	int GetMinHeight();
 
+	const char* GetCaption();
+
 private:
 	const char* mCaption;
 	TabDock* mDock;

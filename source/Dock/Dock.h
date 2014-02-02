@@ -27,6 +27,8 @@ public:
 	virtual Dock* AddTabBottom(Tab* tab);
 	virtual Dock* AddTabBottom(Dock* where, Tab* tab);
 
+	virtual void AddTab(Tab* tab);
+	virtual void RemoveTab(Tab* tab);
 	virtual Tab* GetCurrentTab();
 
 	virtual int GetPositionX();

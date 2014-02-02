@@ -57,6 +57,16 @@ Dock* Dock::AddTabBottom(Dock* where, Tab* tab)
 	return 0;
 }
 
+void Dock::AddTab(Tab* tab)
+{
+	assert(!"unimplemented");
+}
+
+void Dock::RemoveTab(Tab* tab)
+{
+	assert(!"unimplemented");
+}
+
 Tab* Dock::GetCurrentTab()
 {
 	return 0;

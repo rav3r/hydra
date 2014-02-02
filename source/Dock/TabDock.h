@@ -27,6 +27,12 @@ public:
 	int GetMinWidth();
 	int GetMinHeight();
 
+	int GetCaptionWidth();
+
+	unsigned int GetTabCount();
+	Tab* GetTab(unsigned int index);
+
 private:
 	std::vector<Tab*> mTabs;
+	unsigned int mCurrentTab;
 };

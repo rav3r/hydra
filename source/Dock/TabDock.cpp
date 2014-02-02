@@ -3,7 +3,7 @@
 #include <cassert>
 
 TabDock::TabDock(Dock* parent, Tab* tab):
-Dock(parent)
+Dock(parent), mCurrentTab(0)
 {
 	AddTab(tab);
 }
@@ -48,7 +48,10 @@ void TabDock::RemoveTab(Tab* tab)
 
 Tab* TabDock::GetCurrentTab()
 {
-	return mTabs[0];
+	if(mCurrentTab < mTabs.size())
+		return mTabs[mCurrentTab];
+	else
+		return mTabs.back();
 }
 
 Dock* TabDock::AddTabLeft(Tab* tab)
@@ -93,4 +96,19 @@ int TabDock::GetMinHeight()
 			mn = newMin;
 	}
 	return mn;
+}
+
+int TabDock::GetCaptionWidth()
+{
+	return 64;
+}
+
+unsigned int TabDock::GetTabCount()
+{
+	return mTabs.size();
+}
+
+Tab* TabDock::GetTab(unsigned int index)
+{
+	return mTabs[index];
 }

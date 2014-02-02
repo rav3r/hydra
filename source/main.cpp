@@ -9,6 +9,8 @@ int main()
 {
 	sf::RenderWindow window(sf::VideoMode(800, 600), "hydra");
 
+	gDebugFont.loadFromFile("data/SourceSansPro.otf");
+
 	Tab tab("tab");
 	RootDock rootDock(0, 0, 800, 600, &tab);
 	Tab left("left");
@@ -19,6 +21,11 @@ int main()
 	rootDock[0][1].AddTabBottom(&bottom2);
 	Tab left2("left2");
 	rootDock[0][1][1].AddTabLeft(&left2);
+	Tab project("project");
+	rootDock[0][0].AddTab(&project);
+	Tab explorer("explorer");
+	rootDock[0][0].AddTab(&explorer);
+
 
 	while(window.isOpen())
 	{
