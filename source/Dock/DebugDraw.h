@@ -11,8 +11,8 @@ void Dock_DebugDrawRecursively(Dock& dock, sf::RenderWindow& window)
 	rect.setOutlineColor(sf::Color(255, 0, 0));
 	rect.setFillColor(sf::Color(0, 255, 0));
 	
-	rect.setSize(sf::Vector2f(dock.GetWidth(), dock.GetHeight()));
-	rect.setPosition(sf::Vector2f(dock.GetPositionX(), dock.GetPositionY()));
+	rect.setSize(sf::Vector2f((float)dock.GetWidth(), (float)dock.GetHeight()));
+	rect.setPosition(sf::Vector2f((float)dock.GetPositionX(), (float)dock.GetPositionY()));
 	rect.setOutlineThickness(1.0f);
 
 	window.draw(rect);

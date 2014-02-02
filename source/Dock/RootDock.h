@@ -27,6 +27,14 @@ public:
 	int ComputeChildWidth(Dock* dock);
 	int ComputeChildHeight(Dock* dock);
 
+	void SetWidth(int width);
+	void SetHeight(int height);
+
+	bool OnEvent(const sf::Event& event);
+
+	int GetMinWidth();
+	int GetMinHeight();
+
 private:
 	int mX, mY;
 	int mWidth, mHeight;

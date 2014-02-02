@@ -10,11 +10,15 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(800, 600), "hydra");
 
 	Tab tab("tab");
-	RootDock rootDock(5, 5, 800, 600, &tab);
+	RootDock rootDock(0, 0, 800, 600, &tab);
 	Tab left("left");
 	rootDock[0].AddTabLeft(&left);
 	Tab bottom("bottom");
 	rootDock[0][1].AddTabBottom(&bottom);
+	Tab bottom2("bottom2");
+	rootDock[0][1].AddTabBottom(&bottom2);
+	Tab left2("left2");
+	rootDock[0][1][1].AddTabLeft(&left2);
 
 	while(window.isOpen())
 	{
@@ -23,6 +27,24 @@ int main()
 		{
 			if (event.type == sf::Event::Closed)
 				window.close();
+
+			rootDock.OnEvent(event);
+
+			if(event.type == sf::Event::Resized)
+			{
+				int minWidth = rootDock.GetMinWidth();
+				int minHeight = rootDock.GetMinHeight();
+
+				if((int)event.size.width < minWidth || (int)event.size.height < minHeight)
+				{
+					int newWidth  = std::max((int)event.size.width, minWidth);
+					int newHeight = std::max((int)event.size.height, minHeight);
+					window.setSize(sf::Vector2u(newWidth, newHeight));
+				}
+
+				rootDock.SetWidth(window.getSize().x);
+				rootDock.SetHeight(window.getSize().y);
+			}
 		}
 
 		window.clear();

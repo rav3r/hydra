@@ -7,7 +7,7 @@
 #include <cassert>
 
 VerticalDock::VerticalDock(Dock* parent, Dock* firstChild):
-Dock(parent)
+Dock(parent), mPressedSplitter(-1)
 {
 	mDocks.push_back(firstChild);
 	firstChild->mParent = this;
@@ -133,4 +133,108 @@ int VerticalDock::ComputeChildHeight(Dock* dock)
 		return dock->mSize;
 
 	return GetHeight() - ComputeChildPositionY(dock) + GetPositionY();
+}
+
+bool VerticalDock::OnEvent(const sf::Event& event)
+{
+	for(unsigned int i=0; i<mDocks.size(); i++)
+		if(mDocks[i]->OnEvent(event))
+			return true;
+
+	if(event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
+	{
+		mPressedSplitter = -1;
+		if(event.mouseButton.x > GetPositionX() && event.mouseButton.x < GetPositionX() + GetWidth())
+		{
+			int currentY = GetPositionY();
+			for(int i=0; i<(int)mDocks.size()-1; i++)
+			{
+				currentY += mDocks[i]->mSize;
+				if(event.mouseButton.y > currentY && event.mouseButton.y < currentY + SPLITTER_SIZE)
+				{
+					mPressedSplitter = i;
+					mPressedSplitterDiff = event.mouseButton.y - currentY;
+					break;
+				}
+				currentY += SPLITTER_SIZE;
+			}
+		}
+	} else if(event.type == sf::Event::MouseLeft || (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left))
+	{
+		mPressedSplitter = -1;
+	} else if(event.type == sf::Event::MouseMoved)
+	{
+		if(mPressedSplitter != -1)
+		{
+			int diff = event.mouseMove.y - mDocks[mPressedSplitter]->GetPositionY() - mDocks[mPressedSplitter]->mSize - mPressedSplitterDiff;
+			ChangeDockSizes(diff);
+		}
+	}
+
+	return false;
+}
+
+void VerticalDock::ChangeDockSizes(int diff)
+{
+	if(diff < 0)
+	{
+		// splitter -> 0
+		int taken = 0;
+		diff = -diff;
+		for(int i=mPressedSplitter; i>=0 && taken != diff; i--)
+		{
+			int canTake = mDocks[i]->mSize - mDocks[i]->GetMinHeight();
+			if(diff - taken > canTake)
+			{
+				mDocks[i]->mSize -= canTake;
+				taken += canTake;
+			} else
+			{
+				mDocks[i]->mSize -= diff - taken;
+				taken = diff;
+			}
+		}
+		mDocks[mPressedSplitter+1]->mSize += taken;
+	} else
+	{
+		// splitter -> mDocks.size() - 1
+		int taken = 0;
+		for(int i=mPressedSplitter+1; i<(int)mDocks.size() && taken != diff; i++)
+		{
+			int canTake = mDocks[i]->GetHeight() - mDocks[i]->GetMinHeight();
+			if(diff - taken > canTake)
+			{
+				mDocks[i]->mSize -= canTake;
+				taken += canTake;
+			} else
+			{
+				mDocks[i]->mSize -= diff - taken;
+				taken = diff;
+			}
+		}
+		mDocks[mPressedSplitter]->mSize += taken;
+	}
+}
+
+int VerticalDock::GetMinWidth()
+{
+	int mn = mDocks[0]->GetMinWidth();
+	for(unsigned int i=1; i<mDocks.size(); i++)
+	{
+		int newMin = mDocks[i]->GetMinWidth();
+		if(newMin > mn)
+			mn = newMin;
+	}
+	return mn;
+}
+
+int VerticalDock::GetMinHeight()
+{
+	int mn = mDocks[0]->GetMinHeight();
+	for(unsigned int i=1; i<mDocks.size(); i++)
+	{
+		mn += SPLITTER_SIZE;
+		mn += mDocks[i]->GetMinHeight();
+	}
+	return mn;
 }

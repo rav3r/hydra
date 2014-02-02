@@ -30,6 +30,15 @@ public:
 	int ComputeChildWidth(Dock* dock);
 	int ComputeChildHeight(Dock* dock);
 
+	bool OnEvent(const sf::Event& event);
+
+	int GetMinWidth();
+	int GetMinHeight();
+
 private:
 	std::vector<Dock*> mDocks;
+	int mPressedSplitter;
+	int mPressedSplitterDiff;
+
+	void ChangeDockSizes(int diff);
 };

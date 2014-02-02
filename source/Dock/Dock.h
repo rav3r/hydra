@@ -3,6 +3,8 @@
 #include "Tab.h"
 #include "DockType.h"
 
+#include <SFML/Window/Event.hpp>
+
 class Dock
 {
 public:
@@ -36,6 +38,11 @@ public:
 	virtual int ComputeChildPositionY(Dock* dock);
 	virtual int ComputeChildWidth(Dock* dock);
 	virtual int ComputeChildHeight(Dock* dock);
+
+	virtual bool OnEvent(const sf::Event& event) = 0;
+
+	virtual int GetMinWidth() = 0;
+	virtual int GetMinHeight() = 0;
 
 protected:
 	Dock* mParent;

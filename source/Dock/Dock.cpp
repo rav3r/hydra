@@ -2,7 +2,7 @@
 
 #include <cassert>
 
-Dock::Dock(Dock* parent): mParent(parent), mSize(64)
+Dock::Dock(Dock* parent): mParent(parent), mSize(128)
 {
 }
 

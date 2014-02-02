@@ -65,3 +65,32 @@ Dock* TabDock::AddTabBottom(Tab* tab)
 {
 	return mParent->AddTabBottom(this, tab);
 }
+
+bool TabDock::OnEvent(const sf::Event& event)
+{
+	return false;
+}
+
+int TabDock::GetMinWidth()
+{
+	int mn = mTabs[0]->GetMinWidth();
+	for(unsigned int i=1; i<mTabs.size(); i++)
+	{
+		int newMin = mTabs[i]->GetMinWidth();
+		if(newMin > mn)
+			mn = newMin;
+	}
+	return mn;
+}
+
+int TabDock::GetMinHeight()
+{
+	int mn = mTabs[0]->GetMinHeight();
+	for(unsigned int i=1; i<mTabs.size(); i++)
+	{
+		int newMin = mTabs[i]->GetMinHeight();
+		if(newMin > mn)
+			mn = newMin;
+	}
+	return mn;
+}

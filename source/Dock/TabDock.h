@@ -22,6 +22,11 @@ public:
 	Dock* AddTabRight(Tab* tab);
 	Dock* AddTabBottom(Tab* tab);
 
+	bool OnEvent(const sf::Event& event);
+
+	int GetMinWidth();
+	int GetMinHeight();
+
 private:
 	std::vector<Tab*> mTabs;
 };

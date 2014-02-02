@@ -15,3 +15,13 @@ void Tab::UnDock()
 {
 	mDock->RemoveTab(this);
 }
+
+int Tab::GetMinWidth()
+{
+	return 128;
+}
+
+int Tab::GetMinHeight()
+{
+	return 128;
+}

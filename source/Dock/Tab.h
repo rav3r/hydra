@@ -10,6 +10,9 @@ public:
 	void SetDock(TabDock* dock);
 	void UnDock();
 
+	int GetMinWidth();
+	int GetMinHeight();
+
 private:
 	const char* mCaption;
 	TabDock* mDock;

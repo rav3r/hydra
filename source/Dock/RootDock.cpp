@@ -104,3 +104,28 @@ int RootDock::ComputeChildHeight(Dock* dock)
 
 	return GetHeight();
 }
+
+void RootDock::SetWidth(int width)
+{
+	mWidth = width;
+}
+
+void RootDock::SetHeight(int height)
+{
+	mHeight = height;
+}
+
+bool RootDock::OnEvent(const sf::Event& event)
+{
+	return mRootDock->OnEvent(event);
+}
+
+int RootDock::GetMinWidth()
+{
+	return mRootDock->GetMinWidth();
+}
+
+int RootDock::GetMinHeight()
+{
+	return mRootDock->GetMinHeight();
+}
