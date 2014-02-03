@@ -137,7 +137,15 @@ int TabDock::GetMinHeight()
 
 int TabDock::GetCaptionWidth()
 {
-	return 64;
+	if(mTabs.empty())
+		return 64;
+
+	int captionWidth = GetWidth() / mTabs.size();
+	
+	if(captionWidth > 64)
+		captionWidth = 64;
+	
+	return captionWidth;
 }
 
 unsigned int TabDock::GetTabCount()
