@@ -209,15 +209,16 @@ void HorizontalDock::ChangeDockSizes(int diff)
 			int canTake = mDocks[i]->GetWidth() - mDocks[i]->GetMinWidth();
 			if(diff - taken > canTake)
 			{
+				mDocks[mPressedSplitter]->mSize += canTake;
 				mDocks[i]->mSize -= canTake;
 				taken += canTake;
 			} else
 			{
+				mDocks[mPressedSplitter]->mSize += diff - taken;
 				mDocks[i]->mSize -= diff - taken;
 				taken = diff;
 			}
 		}
-		mDocks[mPressedSplitter]->mSize += taken;
 	}
 }
 

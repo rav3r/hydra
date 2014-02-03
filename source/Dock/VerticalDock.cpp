@@ -176,7 +176,7 @@ bool VerticalDock::OnEvent(const sf::Event& event)
 
 	return false;
 }
-
+#include <iostream>
 void VerticalDock::ChangeDockSizes(int diff)
 {
 	if(diff < 0)
@@ -204,18 +204,19 @@ void VerticalDock::ChangeDockSizes(int diff)
 		int taken = 0;
 		for(int i=mPressedSplitter+1; i<(int)mDocks.size() && taken != diff; i++)
 		{
-			int canTake = mDocks[i]->GetHeight() - mDocks[i]->GetMinHeight();
+			int canTake = (mDocks[i]->GetHeight()) - mDocks[i]->GetMinHeight();
 			if(diff - taken > canTake)
 			{
+				mDocks[mPressedSplitter]->mSize += canTake;
 				mDocks[i]->mSize -= canTake;
 				taken += canTake;
 			} else
 			{
+				mDocks[mPressedSplitter]->mSize += diff - taken;
 				mDocks[i]->mSize -= diff - taken;
 				taken = diff;
 			}
 		}
-		mDocks[mPressedSplitter]->mSize += taken;
 	}
 }
 
