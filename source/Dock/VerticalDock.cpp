@@ -33,8 +33,14 @@ void VerticalDock::DeleteDock(Dock* dock)
 	int index = 0;
 	for(; mDocks[index] != dock; index++);
 
+	int addictionalSize = mDocks[index]->GetHeight() + SPLITTER_SIZE;
 	delete mDocks[index];
 	mDocks.erase(mDocks.begin() + index);
+
+	if(index == 0)
+		mDocks[0]->mSize += addictionalSize;
+	else
+		mDocks[index-1]->mSize += addictionalSize;
 
 	if(mDocks.size() == 1)
 	{
@@ -49,9 +55,14 @@ void VerticalDock::Simplify(Dock* oldChild, Dock* newChild)
 	int index = 0;
 	for(; mDocks[index] != oldChild; index++);
 
+	int oldHeight = oldChild->GetHeight();
+	DockType oldType = oldChild->GetType();
+
 	delete mDocks[index];
 	mDocks[index] = newChild;
 	mDocks[index]->mParent = this;
+
+	mDocks[index]->mSize = oldHeight;
 }
 
 Dock* VerticalDock::AddTabLeft(Tab* tab)
@@ -176,7 +187,7 @@ bool VerticalDock::OnEvent(const sf::Event& event)
 
 	return false;
 }
-#include <iostream>
+
 void VerticalDock::ChangeDockSizes(int diff)
 {
 	if(diff < 0)

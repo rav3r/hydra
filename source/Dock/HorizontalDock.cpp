@@ -33,8 +33,14 @@ void HorizontalDock::DeleteDock(Dock* dock)
 	int index = 0;
 	for(; mDocks[index] != dock; index++);
 
+	int addictionalSize = mDocks[index]->GetWidth() + SPLITTER_SIZE;
 	delete mDocks[index];
 	mDocks.erase(mDocks.begin() + index);
+
+	if(index == 0)
+		mDocks[0]->mSize += addictionalSize;
+	else
+		mDocks[index-1]->mSize += addictionalSize;
 
 	if(mDocks.size() == 1)
 	{
@@ -49,9 +55,14 @@ void HorizontalDock::Simplify(Dock* oldChild, Dock* newChild)
 	int index = 0;
 	for(; mDocks[index] != oldChild; index++);
 
+	int oldWidth = oldChild->GetWidth();
+	DockType oldType = oldChild->GetType();
+
 	delete mDocks[index];
 	mDocks[index] = newChild;
 	mDocks[index]->mParent = this;
+
+	mDocks[index]->mSize = oldWidth;
 }
 
 Dock* HorizontalDock::AddTabLeft(Tab* tab)

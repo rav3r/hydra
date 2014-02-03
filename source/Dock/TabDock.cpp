@@ -238,7 +238,13 @@ bool TabDock::OnDrop(DraggedTab draggedTab)
 		if(draggedTab.y > y + height * 2 / 3)
 		{
 			draggedTab.tab->UnDock();
-			AddTabBottom(draggedTab.tab);
+			height = GetHeight();
+			int size = height / 2 - SPLITTER_SIZE;
+			AddTabBottom(draggedTab.tab)->mSize = size;
+			if(mParent->GetType() == DockTypes::Vertical)
+				mSize = height - size - SPLITTER_SIZE;
+			else
+				mParent->mSize = height - size - SPLITTER_SIZE;
 			return true;
 		} else if(draggedTab.y < y + CAPTION_HEIGHT)
 		{
@@ -246,16 +252,29 @@ bool TabDock::OnDrop(DraggedTab draggedTab)
 				return false;
 			draggedTab.tab->UnDock();
 			AddTab(draggedTab.tab);
+
 			return true;
 		} else if(draggedTab.x < x + width * 1 / 3)
 		{
 			draggedTab.tab->UnDock();
-			AddTabLeft(draggedTab.tab);
+			width = GetWidth();
+			int size = width / 2 - SPLITTER_SIZE;
+			AddTabLeft(draggedTab.tab)->mSize = size;
+			if(mParent->GetType() == DockTypes::Vertical)
+				mParent->mSize = width - size - SPLITTER_SIZE;
+			else
+				mSize = width - size - SPLITTER_SIZE;
 			return true;
 		} else if(draggedTab.x > x + width * 2 / 3)
 		{
 			draggedTab.tab->UnDock();
-			AddTabRight(draggedTab.tab);
+			width = GetWidth();
+			int size = width / 2 - SPLITTER_SIZE;
+			AddTabRight(draggedTab.tab)->mSize = size;
+			if(mParent->GetType() == DockTypes::Vertical)
+				mParent->mSize = width - size - SPLITTER_SIZE;
+			else
+				mSize = width - size - SPLITTER_SIZE;
 			return true;
 		}
 	}

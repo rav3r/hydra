@@ -18,12 +18,12 @@ void Tab::UnDock()
 
 int Tab::GetMinWidth()
 {
-	return 128;
+	return 64;
 }
 
 int Tab::GetMinHeight()
 {
-	return 128;
+	return 64;
 }
 
 const char* Tab::GetCaption()

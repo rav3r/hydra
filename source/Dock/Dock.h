@@ -62,4 +62,5 @@ protected:
 	friend class HorizontalDock;
 	friend class VerticalDock;
 	friend class RootDock;
+	friend class TabDock;
 };
