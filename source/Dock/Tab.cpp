@@ -1,6 +1,7 @@
 #include "Tab.h"
 
 #include "TabDock.h"
+#include "Sizes.h"
 
 Tab::Tab(const char* caption): mCaption(caption)
 {
@@ -18,12 +19,12 @@ void Tab::UnDock()
 
 int Tab::GetMinWidth()
 {
-	return 64;
+	return MIN_DOCK_WIDTH;
 }
 
 int Tab::GetMinHeight()
 {
-	return 64;
+	return MIN_DOCK_HEIGHT;
 }
 
 const char* Tab::GetCaption()

@@ -116,7 +116,9 @@ Dock* HorizontalDock::AddTabBottom(Dock* where, Tab* tab)
 	for(; mDocks[index] != where; index++);
 
 	Dock* tmp = mDocks[index];
+	int oldSize = mDocks[index]->mSize;
 	mDocks[index] = new VerticalDock(this, tmp);
+	mDocks[index]->mSize = oldSize;
 	return mDocks[index]->AddTabBottom(tab);
 }
 

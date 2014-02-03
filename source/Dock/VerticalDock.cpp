@@ -76,7 +76,9 @@ Dock* VerticalDock::AddTabLeft(Dock* where, Tab* tab)
 	for(; mDocks[index] != where; index++);
 
 	Dock* tmp = mDocks[index];
+	int oldSize = mDocks[index]->mSize;
 	mDocks[index] = new HorizontalDock(this, tmp);
+	mDocks[index]->mSize = oldSize;
 	return mDocks[index]->AddTabLeft(tab);
 }
 
@@ -91,7 +93,9 @@ Dock* VerticalDock::AddTabRight(Dock* where, Tab* tab)
 	for(; mDocks[index] != where; index++);
 
 	Dock* tmp = mDocks[index];
+	int oldSize = mDocks[index]->mSize;
 	mDocks[index] = new HorizontalDock(this, tmp);
+	mDocks[index]->mSize = oldSize;
 	return mDocks[index]->AddTabRight(tab);
 }
 

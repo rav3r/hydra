@@ -189,7 +189,7 @@ void TabDock::FillDropArea(DraggedTab& draggedTab)
 
 	if(draggedTab.x > x && draggedTab.x < x + width && draggedTab.y > y && draggedTab.y < y + height)
 	{
-		if(draggedTab.y > y + height * 2 / 3)
+		if(height >= MIN_DOCK_HEIGHT*2 + SPLITTER_SIZE && draggedTab.y > y + height * 2 / 3)
 		{
 			draggedTab.showArea = true;
 			draggedTab.areaX = x;
@@ -205,14 +205,14 @@ void TabDock::FillDropArea(DraggedTab& draggedTab)
 			draggedTab.areaY = y;
 			draggedTab.areaWidth = width;
 			draggedTab.areaHeight = CAPTION_HEIGHT;
-		} else if(draggedTab.x < x + width * 1 / 3)
+		} else if(width >= MIN_DOCK_WIDTH*2 + SPLITTER_SIZE && draggedTab.x < x + width * 1 / 3)
 		{
 			draggedTab.showArea = true;
 			draggedTab.areaX = x;
 			draggedTab.areaY = y + CAPTION_HEIGHT;
 			draggedTab.areaWidth = width * 1 / 3;
 			draggedTab.areaHeight = height - CAPTION_HEIGHT;
-		} else if(draggedTab.x > x + width * 2 / 3)
+		} else if(width >= MIN_DOCK_WIDTH*2 + SPLITTER_SIZE && draggedTab.x > x + width * 2 / 3)
 		{
 			draggedTab.showArea = true;
 			draggedTab.areaX = x + width * 2 /3;
@@ -235,11 +235,11 @@ bool TabDock::OnDrop(DraggedTab draggedTab)
 
 	if(draggedTab.x > x && draggedTab.x < x + width && draggedTab.y > y && draggedTab.y < y + height)
 	{
-		if(draggedTab.y > y + height * 2 / 3)
+		if(height >= MIN_DOCK_HEIGHT*2 + SPLITTER_SIZE && draggedTab.y > y + height * 2 / 3)
 		{
 			draggedTab.tab->UnDock();
 			height = GetHeight();
-			int size = height / 2 - SPLITTER_SIZE;
+			int size = height / 2 - SPLITTER_SIZE / 2;
 			AddTabBottom(draggedTab.tab)->mSize = size;
 			if(mParent->GetType() == DockTypes::Vertical)
 				mSize = height - size - SPLITTER_SIZE;
@@ -254,22 +254,22 @@ bool TabDock::OnDrop(DraggedTab draggedTab)
 			AddTab(draggedTab.tab);
 
 			return true;
-		} else if(draggedTab.x < x + width * 1 / 3)
+		} else if(width >= MIN_DOCK_WIDTH*2 + SPLITTER_SIZE && draggedTab.x < x + width * 1 / 3)
 		{
 			draggedTab.tab->UnDock();
 			width = GetWidth();
-			int size = width / 2 - SPLITTER_SIZE;
+			int size = width / 2 - SPLITTER_SIZE / 2;
 			AddTabLeft(draggedTab.tab)->mSize = size;
 			if(mParent->GetType() == DockTypes::Vertical)
 				mParent->mSize = width - size - SPLITTER_SIZE;
 			else
 				mSize = width - size - SPLITTER_SIZE;
 			return true;
-		} else if(draggedTab.x > x + width * 2 / 3)
+		} else if(width >= MIN_DOCK_WIDTH*2 + SPLITTER_SIZE && draggedTab.x > x + width * 2 / 3)
 		{
 			draggedTab.tab->UnDock();
 			width = GetWidth();
-			int size = width / 2 - SPLITTER_SIZE;
+			int size = width / 2 - SPLITTER_SIZE / 2;
 			AddTabRight(draggedTab.tab)->mSize = size;
 			if(mParent->GetType() == DockTypes::Vertical)
 				mParent->mSize = width - size - SPLITTER_SIZE;
