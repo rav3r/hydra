@@ -40,6 +40,8 @@ public:
 	void FillDropArea(DraggedTab& draggedTab);
 	bool OnDrop(DraggedTab draggedTab);
 
+	void OnResize();
+
 private:
 	int mX, mY;
 	int mWidth, mHeight;

@@ -149,3 +149,8 @@ bool RootDock::OnDrop(DraggedTab draggedTab)
 {
 	return mRootDock->OnDrop(draggedTab);
 }
+
+void RootDock::OnResize()
+{
+	mRootDock->OnResize();
+}

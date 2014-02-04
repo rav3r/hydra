@@ -54,6 +54,8 @@ public:
 	virtual void FillDropArea(DraggedTab& draggedTab) = 0;
 	virtual bool OnDrop(DraggedTab draggedTab) = 0;
 
+	virtual void OnResize() = 0;
+
 protected:
 	Dock* mParent;
 

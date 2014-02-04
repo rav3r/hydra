@@ -40,6 +40,8 @@ public:
 	void FillDropArea(DraggedTab& tab);
 	bool OnDrop(DraggedTab draggedTab);
 
+	void OnResize();
+
 private:
 	std::vector<Dock*> mDocks;
 	int mPressedSplitter;

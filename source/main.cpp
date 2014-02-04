@@ -49,10 +49,11 @@ int main()
 
 				rootDock.SetWidth(window.getSize().x);
 				rootDock.SetHeight(window.getSize().y);
+				rootDock.OnResize();
 			}
 		}
 
-		window.clear();
+		window.clear(sf::Color(64, 64, 64));
 		Dock_DebugDraw(rootDock, window);
 		window.display();
 	}

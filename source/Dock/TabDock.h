@@ -37,6 +37,9 @@ public:
 	void FillDropArea(DraggedTab& draggedTab);
 	bool OnDrop(DraggedTab draggedTab);
 
+	void OnResize();
+
+
 private:
 	std::vector<Tab*> mTabs;
 	unsigned int mCurrentTab;

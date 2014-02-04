@@ -233,6 +233,9 @@ void HorizontalDock::ChangeDockSizes(int diff)
 			}
 		}
 	}
+
+	for(unsigned int i=0; i<mDocks.size(); i++)
+		mDocks[i]->OnResize();
 }
 
 int HorizontalDock::GetMinWidth()
@@ -286,4 +289,32 @@ bool HorizontalDock::OnDrop(DraggedTab draggedTab)
 		if(mDocks[i]->OnDrop(draggedTab))
 			return true;
 	return false;
+}
+
+void HorizontalDock::OnResize()
+{	
+	int width = GetWidth();
+	int diff = width - (mDocks.back()->GetPositionX() - GetPositionX() + mDocks.back()->GetMinWidth());
+
+	if(diff < 0)
+	{
+		int taken = 0;
+		diff = -diff;
+		for(int i=(int)mDocks.size()-2; i>=0 && diff!=taken; i--)
+		{
+			int canTake = (mDocks[i]->GetWidth()) - mDocks[i]->GetMinWidth();
+			if(diff - taken > canTake)
+			{
+				mDocks[i]->mSize -= canTake;
+				taken += canTake;
+			} else
+			{
+				mDocks[i]->mSize -= diff - taken;
+				taken = diff;
+			}
+		}
+	}
+
+	for(unsigned int i=0; i<mDocks.size(); i++)
+		mDocks[i]->OnResize();
 }

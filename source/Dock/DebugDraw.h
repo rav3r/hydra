@@ -12,7 +12,7 @@ void Dock_DebugDrawRecursively(Dock& dock, sf::RenderWindow& window)
 {
 	sf::RectangleShape rect;
 	
-	rect.setOutlineColor(sf::Color(255, 255, 255));
+	rect.setOutlineColor(sf::Color(128, 128, 128));
 	rect.setFillColor(sf::Color(64, 64, 64));
 	
 	rect.setSize(sf::Vector2f((float)dock.GetWidth(), (float)dock.GetHeight()));
@@ -48,9 +48,9 @@ void Dock_DebugDrawRecursively(Dock& dock, sf::RenderWindow& window)
 			rect.setFillColor(current ? sf::Color(64, 64, 64) : sf::Color(128, 128, 128));
 			rect.setOutlineColor(sf::Color(255, 255, 255));
 
-			rect.setSize(sf::Vector2f((float)tabDock.GetCaptionWidth()-2, (float)CAPTION_HEIGHT-2));
-			rect.setPosition(sf::Vector2f(posX+1, (float)dock.GetPositionY()+1));
-			rect.setOutlineThickness(1.0f);
+			rect.setSize(sf::Vector2f((float)tabDock.GetCaptionWidth(), (float)CAPTION_HEIGHT));
+			rect.setPosition(sf::Vector2f(posX, (float)dock.GetPositionY()));
+			//rect.setOutlineThickness(1.0f);
 
 			window.draw(rect);
 

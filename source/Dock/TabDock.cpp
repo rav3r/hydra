@@ -281,3 +281,7 @@ bool TabDock::OnDrop(DraggedTab draggedTab)
 
 	return false;
 }
+
+void TabDock::OnResize()
+{
+}
