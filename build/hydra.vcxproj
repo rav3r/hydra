@@ -39,13 +39,15 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>include;$(IncludePath)</IncludePath>
-    <LibraryPath>lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>include;C:\Biblioteki\wxWidgets\include;C:\Biblioteki\wxWidgets\include\msvc;$(IncludePath)</IncludePath>
+    <LibraryPath>lib;lib\vc100_dll;C:\Biblioteki\wxWidgets\lib\vc100_dll;$(LibraryPath)</LibraryPath>
+    <ExecutablePath>C:\Biblioteki\wxWidgets\lib\vc100_dll;$(ExecutablePath)</ExecutablePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>include;$(IncludePath)</IncludePath>
-    <LibraryPath>lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>include;C:\Biblioteki\wxWidgets\include\msvc;C:\Biblioteki\wxWidgets\include;$(IncludePath)</IncludePath>
+    <LibraryPath>lib;C:\Biblioteki\wxWidgets\lib\vc100_dll;$(LibraryPath)</LibraryPath>
+    <ExecutablePath>$(ExecutablePath)</ExecutablePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -53,12 +55,12 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;WXUSINGDLL;wxMSVC_VERSION_AUTO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>sfml-window-d.lib;sfml-graphics-d.lib;sfml-main-d.lib;sfml-system-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-window-d.lib;sfml-graphics-d.lib;sfml-main-d.lib;sfml-system-d.lib;OpenGL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -69,14 +71,14 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;WXUSINGDLL;wxMSVC_VERSION_AUTO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>sfml-window.lib;sfml-graphics.lib;sfml-main.lib;sfml-system.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-window.lib;sfml-graphics.lib;sfml-main.lib;sfml-system.lib;OpenGL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -88,7 +90,10 @@
     <ClCompile Include="..\source\Dock\TabDock.cpp" />
     <ClCompile Include="..\source\Dock\TestHarness\Test_RootDock.cpp" />
     <ClCompile Include="..\source\Dock\VerticalDock.cpp" />
-    <ClCompile Include="..\source\main.cpp" />
+    <ClCompile Include="..\source\SystemUI\MainApplication.cpp" />
+    <ClCompile Include="..\source\SystemUI\MainCanvas.cpp" />
+    <ClCompile Include="..\source\SystemUI\MainFrame.cpp" />
+    <ClCompile Include="..\source\SystemUI\wxSFMLCanvas.cpp" />
     <ClCompile Include="..\source\UnitTest++\AssertException.cpp" />
     <ClCompile Include="..\source\UnitTest++\Checks.cpp" />
     <ClCompile Include="..\source\UnitTest++\CurrentTest.cpp" />
@@ -117,6 +122,10 @@
     <ClInclude Include="..\source\Dock\Tab.h" />
     <ClInclude Include="..\source\Dock\TabDock.h" />
     <ClInclude Include="..\source\Dock\VerticalDock.h" />
+    <ClInclude Include="..\source\SystemUI\MainApplication.h" />
+    <ClInclude Include="..\source\SystemUI\MainCanvas.h" />
+    <ClInclude Include="..\source\SystemUI\MainFrame.h" />
+    <ClInclude Include="..\source\SystemUI\wxSFMLCanvas.h" />
     <ClInclude Include="..\source\UnitTest++\AssertException.h" />
     <ClInclude Include="..\source\UnitTest++\CheckMacros.h" />
     <ClInclude Include="..\source\UnitTest++\Checks.h" />

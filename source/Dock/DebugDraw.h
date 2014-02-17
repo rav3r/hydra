@@ -8,7 +8,7 @@
 
 sf::Font gDebugFont;
 
-void Dock_DebugDrawRecursively(Dock& dock, sf::RenderWindow& window)
+void Dock_DebugDrawRecursively(Dock& dock, sf::RenderTarget& window)
 {
 	sf::RectangleShape rect;
 	
@@ -63,9 +63,9 @@ void Dock_DebugDrawRecursively(Dock& dock, sf::RenderWindow& window)
 	}
 }
 
-void Dock_DebugDraw(RootDock& root, sf::RenderWindow& window)
+void Dock_DebugDraw(RootDock& root, sf::RenderTarget& window, int width, int height)
 {
-	sf::View view(sf::FloatRect(0, 0, (float)window.getSize().x, (float)window.getSize().y));
+	sf::View view(sf::FloatRect(0, 0, (float)width, (float)height));
 
 	window.setView(view);
 

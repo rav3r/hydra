@@ -3,7 +3,7 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 
-#include "Dock/DebugDraw.h"
+/*#include "Dock/DebugDraw.h"
 
 int main()
 {
@@ -59,4 +59,4 @@ int main()
 	}
 
 	return 0;
-}
+}*/

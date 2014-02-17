@@ -13,6 +13,9 @@
     <Filter Include="Dock\TestHarness">
       <UniqueIdentifier>{042233d1-497c-4a8a-9392-a59c636cd52f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SystemUI">
+      <UniqueIdentifier>{950c2f0a-6569-49a7-a0bc-8d867f2816dc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\UnitTest++\AssertException.cpp">
@@ -66,7 +69,6 @@
     <ClCompile Include="..\source\UnitTest++\Win32\TimeHelpers.cpp">
       <Filter>UnitTest++\Win32</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\main.cpp" />
     <ClCompile Include="..\source\Dock\Tab.cpp">
       <Filter>Dock</Filter>
     </ClCompile>
@@ -90,6 +92,18 @@
     </ClCompile>
     <ClCompile Include="..\source\Dock\DraggedTab.h">
       <Filter>Dock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\SystemUI\MainApplication.cpp">
+      <Filter>SystemUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\SystemUI\wxSFMLCanvas.cpp">
+      <Filter>SystemUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\SystemUI\MainFrame.cpp">
+      <Filter>SystemUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\SystemUI\MainCanvas.cpp">
+      <Filter>SystemUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -191,6 +205,18 @@
     </ClInclude>
     <ClInclude Include="..\source\Dock\Sizes.h">
       <Filter>Dock</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\SystemUI\MainApplication.h">
+      <Filter>SystemUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\SystemUI\MainFrame.h">
+      <Filter>SystemUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\SystemUI\wxSFMLCanvas.h">
+      <Filter>SystemUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\SystemUI\MainCanvas.h">
+      <Filter>SystemUI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
