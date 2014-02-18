@@ -113,6 +113,7 @@
     <ClCompile Include="..\source\UnitTest++\XmlTestReporter.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\source\Dock\CursorStyle.h" />
     <ClInclude Include="..\source\Dock\DebugDraw.h" />
     <ClInclude Include="..\source\Dock\Dock.h" />
     <ClInclude Include="..\source\Dock\DockType.h" />

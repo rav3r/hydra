@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Tab.h"
+#include "CursorStyle.h"
 #include "DockType.h"
 #include "DraggedTab.h"
 
@@ -45,6 +46,8 @@ public:
 	virtual bool OnMouseMove(int x, int y) = 0;
 	virtual bool OnLeftDown(int x, int y) = 0;
 	virtual bool OnLeftUp(int x, int y) = 0;
+
+	virtual CursorStyle GetCursorStyle(int x, int y) = 0;
 
 	virtual int GetMinWidth() = 0;
 	virtual int GetMinHeight() = 0;

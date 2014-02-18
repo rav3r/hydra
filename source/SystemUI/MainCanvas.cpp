@@ -21,6 +21,8 @@ wxSFMLCanvas(parent, id, pos, size, style)
 {
 	texture.loadFromFile("data/img.jpg");
 	gDebugFont.loadFromFile("data/SourceSansPro.otf");
+
+	mCursorChanged = false;
 }
 
 void MainCanvas::OnUpdate()
@@ -42,13 +44,34 @@ void MainCanvas::OnResize(int width, int height)
 void MainCanvas::OnMotion(wxMouseEvent& event)
 {
 	rootDock->OnMouseMove(event.GetX(), event.GetY());
+
+	if(mCursorChanged == false)
+	{
+		static wxCursor normal(wxCURSOR_ARROW);
+		static wxCursor sizeNS(wxCURSOR_SIZENS);
+		static wxCursor sizeWE(wxCURSOR_SIZEWE);
+
+		switch(rootDock->GetCursorStyle(event.GetX(), event.GetY()))
+		{
+		case CursorStyles::SIZE_NS:
+			SetCursor(sizeNS);
+			break;
+		case CursorStyles::SIZE_WE:
+			SetCursor(sizeWE);
+			break;
+		default:
+			SetCursor(normal);
+			break;
+		}
+	}
 }
 
 void MainCanvas::OnLeftDown(wxMouseEvent& event)
 {
 	CaptureMouse();
 
-	rootDock->OnLeftDown(event.GetX(), event.GetY());
+	if(rootDock->OnLeftDown(event.GetX(), event.GetY()))
+		mCursorChanged = true;
 }
 
 void MainCanvas::OnLeftUp(wxMouseEvent& event)
@@ -56,6 +79,8 @@ void MainCanvas::OnLeftUp(wxMouseEvent& event)
 	ReleaseCapture();
 
 	rootDock->OnLeftUp(event.GetX(), event.GetY());
+
+	mCursorChanged = false;
 }
 
 void MainCanvas::OnCaptureLost(wxMouseCaptureLostEvent&)

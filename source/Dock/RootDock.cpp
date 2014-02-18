@@ -130,6 +130,11 @@ bool RootDock::OnLeftUp(int x, int y)
 	return mRootDock->OnLeftUp(x, y);
 }
 
+CursorStyle RootDock::GetCursorStyle(int x, int y)
+{
+	return mRootDock->GetCursorStyle(x, y);
+}
+
 int RootDock::GetMinWidth()
 {
 	return mRootDock->GetMinWidth();

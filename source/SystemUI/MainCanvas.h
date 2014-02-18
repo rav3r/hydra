@@ -18,4 +18,6 @@ private:
 	void OnLeftDown(wxMouseEvent&);
 	void OnLeftUp(wxMouseEvent&);
 	void OnCaptureLost(wxMouseCaptureLostEvent&);
+
+	bool mCursorChanged;
 };

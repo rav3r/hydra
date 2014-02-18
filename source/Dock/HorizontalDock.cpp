@@ -185,7 +185,7 @@ bool HorizontalDock::OnLeftDown(int x, int y)
 			{
 				mPressedSplitter = i;
 				mPressedSplitterDiff = x - currentX;
-				break;
+				return true;
 			}
 			currentX += SPLITTER_SIZE;
 		}
@@ -203,6 +203,32 @@ bool HorizontalDock::OnLeftUp(int x, int y)
 	mPressedSplitter = -1;
 
 	return false;
+}
+
+CursorStyle HorizontalDock::GetCursorStyle(int x, int y)
+{
+	for(unsigned int i=0; i<mDocks.size(); i++)
+	{
+		CursorStyle style = mDocks[i]->GetCursorStyle(x, y);
+		if(style != CursorStyles::NORMAL)
+			return style;
+	}
+
+	if(y > GetPositionY() && y < GetPositionY() + GetHeight())
+	{
+		int currentX = GetPositionX();
+		for(int i=0; i<(int)mDocks.size()-1; i++)
+		{
+			currentX += mDocks[i]->mSize;
+			if(x > currentX && x < currentX + SPLITTER_SIZE)
+			{
+				return CursorStyles::SIZE_WE;
+			}
+			currentX += SPLITTER_SIZE;
+		}
+	}
+
+	return CursorStyles::NORMAL;
 }
 
 void HorizontalDock::ChangeDockSizes(int diff)

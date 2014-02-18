@@ -26,6 +26,8 @@ public:
 	bool OnLeftDown(int x, int y);
 	bool OnLeftUp(int x, int y);
 
+	CursorStyle GetCursorStyle(int x, int y);
+
 	int GetMinWidth();
 	int GetMinHeight();
 

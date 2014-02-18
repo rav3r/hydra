@@ -218,5 +218,8 @@
     <ClInclude Include="..\source\SystemUI\MainCanvas.h">
       <Filter>SystemUI</Filter>
     </ClInclude>
+    <ClInclude Include="..\source\Dock\CursorStyle.h">
+      <Filter>Dock</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

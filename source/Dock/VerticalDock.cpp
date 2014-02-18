@@ -185,7 +185,7 @@ bool VerticalDock::OnLeftDown(int x, int y)
 			{
 				mPressedSplitter = i;
 				mPressedSplitterDiff = y - currentY;
-				break;
+				return true;
 			}
 			currentY += SPLITTER_SIZE;
 		}
@@ -203,6 +203,32 @@ bool VerticalDock::OnLeftUp(int x, int y)
 	mPressedSplitter = -1;
 
 	return false;
+}
+
+CursorStyle VerticalDock::GetCursorStyle(int x, int y)
+{
+	for(unsigned int i=0; i<mDocks.size(); i++)
+	{
+		CursorStyle style = mDocks[i]->GetCursorStyle(x, y);
+		if(style != CursorStyles::NORMAL)
+			return style;
+	}
+
+	if(x > GetPositionX() && x < GetPositionX() + GetWidth())
+	{
+		int currentY = GetPositionY();
+		for(int i=0; i<(int)mDocks.size()-1; i++)
+		{
+			currentY += mDocks[i]->mSize;
+			if(y > currentY && y < currentY + SPLITTER_SIZE)
+			{
+				return CursorStyles::SIZE_NS;
+			}
+			currentY += SPLITTER_SIZE;
+		}
+	}
+
+	return CursorStyles::NORMAL;
 }
 
 void VerticalDock::ChangeDockSizes(int diff)

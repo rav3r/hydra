@@ -116,6 +116,11 @@ bool TabDock::OnLeftUp(int x, int y)
 	return false;
 }
 
+CursorStyle TabDock::GetCursorStyle(int x, int y)
+{
+	return CursorStyles::NORMAL;
+}
+
 int TabDock::GetMinWidth()
 {
 	int mn = mTabs[0]->GetMinWidth();
