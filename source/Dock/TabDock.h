@@ -22,7 +22,9 @@ public:
 	Dock* AddTabRight(Tab* tab);
 	Dock* AddTabBottom(Tab* tab);
 
-	bool OnEvent(const sf::Event& event);
+	bool OnMouseMove(int x, int y);
+	bool OnLeftDown(int x, int y);
+	bool OnLeftUp(int x, int y);
 
 	int GetMinWidth();
 	int GetMinHeight();

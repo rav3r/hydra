@@ -4,8 +4,6 @@
 #include "DockType.h"
 #include "DraggedTab.h"
 
-#include <SFML/Window/Event.hpp>
-
 class Dock
 {
 public:
@@ -44,7 +42,9 @@ public:
 
 	Dock* GetRoot();
 
-	virtual bool OnEvent(const sf::Event& event) = 0;
+	virtual bool OnMouseMove(int x, int y) = 0;
+	virtual bool OnLeftDown(int x, int y) = 0;
+	virtual bool OnLeftUp(int x, int y) = 0;
 
 	virtual int GetMinWidth() = 0;
 	virtual int GetMinHeight() = 0;

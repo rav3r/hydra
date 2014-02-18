@@ -153,41 +153,54 @@ int VerticalDock::ComputeChildHeight(Dock* dock)
 	return GetHeight() - ComputeChildPositionY(dock) + GetPositionY();
 }
 
-bool VerticalDock::OnEvent(const sf::Event& event)
+bool VerticalDock::OnMouseMove(int x, int y)
 {
 	for(unsigned int i=0; i<mDocks.size(); i++)
-		if(mDocks[i]->OnEvent(event))
+		if(mDocks[i]->OnMouseMove(x, y))
 			return true;
 
-	if(event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
+	if(mPressedSplitter != -1)
 	{
-		mPressedSplitter = -1;
-		if(event.mouseButton.x > GetPositionX() && event.mouseButton.x < GetPositionX() + GetWidth())
+		int diff = y - mDocks[mPressedSplitter]->GetPositionY() - mDocks[mPressedSplitter]->mSize - mPressedSplitterDiff;
+		ChangeDockSizes(diff);
+	}
+
+	return false;
+}
+
+bool VerticalDock::OnLeftDown(int x, int y)
+{
+	for(unsigned int i=0; i<mDocks.size(); i++)
+		if(mDocks[i]->OnLeftDown(x, y))
+			return true;
+
+	mPressedSplitter = -1;
+	if(x > GetPositionX() && x < GetPositionX() + GetWidth())
+	{
+		int currentY = GetPositionY();
+		for(int i=0; i<(int)mDocks.size()-1; i++)
 		{
-			int currentY = GetPositionY();
-			for(int i=0; i<(int)mDocks.size()-1; i++)
+			currentY += mDocks[i]->mSize;
+			if(y > currentY && y < currentY + SPLITTER_SIZE)
 			{
-				currentY += mDocks[i]->mSize;
-				if(event.mouseButton.y > currentY && event.mouseButton.y < currentY + SPLITTER_SIZE)
-				{
-					mPressedSplitter = i;
-					mPressedSplitterDiff = event.mouseButton.y - currentY;
-					break;
-				}
-				currentY += SPLITTER_SIZE;
+				mPressedSplitter = i;
+				mPressedSplitterDiff = y - currentY;
+				break;
 			}
-		}
-	} else if(event.type == sf::Event::MouseLeft || (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left))
-	{
-		mPressedSplitter = -1;
-	} else if(event.type == sf::Event::MouseMoved)
-	{
-		if(mPressedSplitter != -1)
-		{
-			int diff = event.mouseMove.y - mDocks[mPressedSplitter]->GetPositionY() - mDocks[mPressedSplitter]->mSize - mPressedSplitterDiff;
-			ChangeDockSizes(diff);
+			currentY += SPLITTER_SIZE;
 		}
 	}
+
+	return false;
+}
+
+bool VerticalDock::OnLeftUp(int x, int y)
+{
+	for(unsigned int i=0; i<mDocks.size(); i++)
+		if(mDocks[i]->OnLeftUp(x, y))
+			return true;
+
+	mPressedSplitter = -1;
 
 	return false;
 }
@@ -294,7 +307,7 @@ bool VerticalDock::OnDrop(DraggedTab draggedTab)
 void VerticalDock::OnResize()
 {
 	int height = GetHeight();
-	int diff = height - (mDocks.back()->GetPositionY() - GetPositionY() + mDocks.back()->GetMinWidth());
+	int diff = height - (mDocks.back()->GetPositionY() - GetPositionY() + mDocks.back()->GetMinHeight());
 
 	if(diff < 0)
 	{

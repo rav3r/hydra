@@ -70,42 +70,47 @@ Dock* TabDock::AddTabBottom(Tab* tab)
 	return mParent->AddTabBottom(this, tab);
 }
 
-bool TabDock::OnEvent(const sf::Event& event)
+bool TabDock::OnMouseMove(int x, int y)
 {
-	if(event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
+	if(mPressedTab != -1)
 	{
-		if(event.mouseButton.x > GetPositionX() && event.mouseButton.x < GetPositionX() + GetWidth() &&
-			event.mouseButton.y > GetPositionY() && event.mouseButton.y < GetPositionY() + CAPTION_HEIGHT)
-		{
-			int posX = GetPositionX();
+		InitDraggedTab(x, y);
+	}
 
-			for(unsigned int i=0; i<mTabs.size(); i++)
+	return false;
+}
+
+bool TabDock::OnLeftDown(int x, int y)
+{
+	if(x > GetPositionX() && x < GetPositionX() + GetWidth() &&
+		y > GetPositionY() && y < GetPositionY() + CAPTION_HEIGHT)
+	{
+		int posX = GetPositionX();
+
+		for(unsigned int i=0; i<mTabs.size(); i++)
+		{
+			if(x > posX && x < posX + GetCaptionWidth())
 			{
-				if(event.mouseButton.x > posX && event.mouseButton.x < posX + GetCaptionWidth())
-				{
-					mCurrentTab = i;
-					mPressedTab = i;
-					InitDraggedTab(event.mouseButton.x, event.mouseButton.y);
-					return true;
-				}
-
-				posX += GetCaptionWidth();
+				mCurrentTab = i;
+				mPressedTab = i;
+				InitDraggedTab(x, y);
+				return true;
 			}
+
+			posX += GetCaptionWidth();
 		}
-	} else if(event.type == sf::Event::MouseLeft || (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left))
+	}
+
+	return false;
+}
+
+bool TabDock::OnLeftUp(int x, int y)
+{
+	if(mPressedTab != -1)
 	{
-		if(mPressedTab != -1)
-		{
-			mPressedTab = -1;
-			GetRoot()->OnDrop(mDraggedTab);
-			return true;
-		}
-	} else if(event.type == sf::Event::MouseMoved)
-	{
-		if(mPressedTab != -1)
-		{
-			InitDraggedTab(event.mouseMove.x, event.mouseMove.y);
-		}
+		mPressedTab = -1;
+		GetRoot()->OnDrop(mDraggedTab);
+		return true;
 	}
 
 	return false;

@@ -115,9 +115,19 @@ void RootDock::SetHeight(int height)
 	mHeight = height;
 }
 
-bool RootDock::OnEvent(const sf::Event& event)
+bool RootDock::OnMouseMove(int x, int y)
 {
-	return mRootDock->OnEvent(event);
+	return mRootDock->OnMouseMove(x, y);
+}
+
+bool RootDock::OnLeftDown(int x, int y)
+{
+	return mRootDock->OnLeftDown(x, y);
+}
+
+bool RootDock::OnLeftUp(int x, int y)
+{
+	return mRootDock->OnLeftUp(x, y);
 }
 
 int RootDock::GetMinWidth()

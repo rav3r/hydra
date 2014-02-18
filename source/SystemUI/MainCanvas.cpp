@@ -8,6 +8,14 @@ extern RootDock* rootDock;
 sf::Texture texture;
 sf::Sprite sprite;
 
+wxBEGIN_EVENT_TABLE(MainCanvas, wxSFMLCanvas)
+	EVT_MOTION(MainCanvas::OnMotion)
+	EVT_LEFT_DOWN(MainCanvas::OnLeftDown)
+	EVT_LEFT_UP(MainCanvas::OnLeftUp)
+	EVT_MOUSE_CAPTURE_LOST(MainCanvas::OnCaptureLost)
+wxEND_EVENT_TABLE()
+
+
 MainCanvas::MainCanvas(wxWindow* parent, wxWindowID id, wxPoint& pos, wxSize& size, long style):
 wxSFMLCanvas(parent, id, pos, size, style)
 {
@@ -17,6 +25,8 @@ wxSFMLCanvas(parent, id, pos, size, style)
 
 void MainCanvas::OnUpdate()
 {
+	clear();
+
 	Dock_DebugDraw(*rootDock, *this, rootDock->GetWidth(), rootDock->GetHeight());
 }
 
@@ -27,4 +37,28 @@ void MainCanvas::OnResize(int width, int height)
 	rootDock->SetWidth(width);
 	rootDock->SetHeight(height);
 	rootDock->OnResize();
+}
+
+void MainCanvas::OnMotion(wxMouseEvent& event)
+{
+	rootDock->OnMouseMove(event.GetX(), event.GetY());
+}
+
+void MainCanvas::OnLeftDown(wxMouseEvent& event)
+{
+	CaptureMouse();
+
+	rootDock->OnLeftDown(event.GetX(), event.GetY());
+}
+
+void MainCanvas::OnLeftUp(wxMouseEvent& event)
+{
+	ReleaseCapture();
+
+	rootDock->OnLeftUp(event.GetX(), event.GetY());
+}
+
+void MainCanvas::OnCaptureLost(wxMouseCaptureLostEvent&)
+{
+	// todo
 }

@@ -30,7 +30,9 @@ public:
 	int ComputeChildWidth(Dock* dock);
 	int ComputeChildHeight(Dock* dock);
 
-	bool OnEvent(const sf::Event& event);
+	bool OnMouseMove(int x, int y);
+	bool OnLeftDown(int x, int y);
+	bool OnLeftUp(int x, int y);
 
 	int GetMinWidth();
 	int GetMinHeight();

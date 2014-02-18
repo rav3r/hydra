@@ -9,4 +9,13 @@ public:
 
 	virtual void OnUpdate();
 	virtual void OnResize(int width, int height);
+
+private:
+	DECLARE_EVENT_TABLE()
+
+	// Events
+	void OnMotion(wxMouseEvent&);
+	void OnLeftDown(wxMouseEvent&);
+	void OnLeftUp(wxMouseEvent&);
+	void OnCaptureLost(wxMouseCaptureLostEvent&);
 };
