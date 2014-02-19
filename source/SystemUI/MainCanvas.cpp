@@ -15,19 +15,19 @@ wxBEGIN_EVENT_TABLE(MainCanvas, wxSFMLCanvas)
 	EVT_MOUSE_CAPTURE_LOST(MainCanvas::OnCaptureLost)
 wxEND_EVENT_TABLE()
 
-
 MainCanvas::MainCanvas(wxWindow* parent, wxWindowID id, wxPoint& pos, wxSize& size, long style):
 wxSFMLCanvas(parent, id, pos, size, style)
 {
 	texture.loadFromFile("data/img.jpg");
 	gDebugFont.loadFromFile("data/SourceSansPro.otf");
+	gGuiTexture.loadFromFile("data/gui-skin.png");
 
 	mCursorChanged = false;
 }
 
 void MainCanvas::OnUpdate()
 {
-	clear();
+	clear(sf::Color(30,30,30));
 
 	Dock_DebugDraw(*rootDock, *this, rootDock->GetWidth(), rootDock->GetHeight());
 }

@@ -147,13 +147,15 @@ int TabDock::GetMinHeight()
 
 int TabDock::GetCaptionWidth()
 {
+	const int MAX_CAPTION_WIDTH = 120;
+
 	if(mTabs.empty())
-		return 64;
+		return MAX_CAPTION_WIDTH;
 
 	int captionWidth = GetWidth() / mTabs.size();
 	
-	if(captionWidth > 64)
-		captionWidth = 64;
+	if(captionWidth > MAX_CAPTION_WIDTH)
+		captionWidth = MAX_CAPTION_WIDTH;
 	
 	return captionWidth;
 }
